@@ -11,6 +11,7 @@ import orders from "./orders";
 import orderItems from "./orderItems";
 import paymentResults from "./paymentResults";
 import shippingAddress from "./shippingAddress";
+import food from "./food";
 export default createSchema({
   // We name our schema
   name: "default",
@@ -24,5 +25,6 @@ export default createSchema({
     orderItems,
     paymentResults,
     shippingAddress,
+    food,
   ]),
 });

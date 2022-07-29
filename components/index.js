@@ -8,3 +8,5 @@ export { default as CheckoutWizard } from "./CheckoutWizard";
 export { default as Order } from "./Order";
 export { default as OrderHistoryDetail } from "./OrderHistoryDetail";
 export { default as SearchButton } from "./SearchButton";
+export { default as Food } from "./Food";
+export { default as FoodList } from "./FoodList";
