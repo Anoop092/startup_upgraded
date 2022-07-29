@@ -11,6 +11,7 @@ const initialState = {
     ? JSON.parse(Cookies.get("cart"))
     : {
         cartItems: [],
+        productItems: [],
         shippingAddress: Cookies.get("location")
           ? JSON.parse(Cookies.get("location"))
           : {},
@@ -25,18 +26,28 @@ export function StoreProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const router = useRouter();
 
-  const addToCartHandler = async (animal) => {
-    const existingItem = state.cart.cartItems.find((x) => x._id === animal._id);
+  const addToCartHandler = async (someData) => {
+    const existingItem = state.cart.cartItems.find(
+      (x) => x._id === someData._id
+    );
     const quantity = existingItem ? existingItem.quantity + 1 : 1;
-    const { data } = await axios.get(`/api/animals/${animal._id}`);
+    let data1;
+    if (someData._type === "food") {
+      const { data } = await axios.get(`/api/products/${someData._id}`);
+      data1 = data;
+    } else {
+      const { data } = await axios.get(`/api/animals/${someData._id}`);
+      data1 = data;
+    }
 
-    if (data.countInStock < quantity) {
+    if (data1.countInStock < quantity) {
       return toast.error("Sorry.Product is out of stock");
     }
-    dispatch({ type: "ADD_TO_CART", payload: { ...animal, quantity } });
+    dispatch({ type: "ADD_TO_CART", payload: { ...someData, quantity } });
     toast.success("successfully added to cart");
     router.push("/cart");
   };
+
   const updateCartHandler = async (item, qty) => {
     const quantity = Number(qty);
 

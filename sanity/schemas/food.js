@@ -47,5 +47,10 @@ export default {
       title: "Category",
       type: "string",
     },
+    {
+      name: "countInStock",
+      title: "CountInStock",
+      type: "number",
+    },
   ],
 };

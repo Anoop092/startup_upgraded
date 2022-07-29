@@ -31,7 +31,11 @@ const CartDetail = ({ cartItems }) => {
                         <Link href={`/products/${item.slug.current}`}>
                           <a className="flex items-center">
                             <Image
-                              src={urlForThumbnail(item.image)}
+                              src={urlForThumbnail(
+                                item._type === "food"
+                                  ? item.image[0]
+                                  : item.image
+                              )}
                               alt={item.name}
                               width={50}
                               height={50}

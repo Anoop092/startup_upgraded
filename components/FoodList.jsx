@@ -1,9 +1,11 @@
 import Link from "next/link";
 import React from "react";
 import { urlForThumbnail } from "../utils/image";
+import { useGlobalContext } from "../utils/Store";
 
 const FoodList = ({ food }) => {
   const { name, image, price, slug } = food;
+  const { addToCartHandler } = useGlobalContext();
   return (
     <div className="card bg-base-100 shadow-xl">
       <figure>
@@ -28,7 +30,11 @@ const FoodList = ({ food }) => {
           <span className="text-blue-500">MRP</span> : {price}Rs
         </p>
         <div className="card-actions justify-end">
-          <button className="btn btn-primary " type="btn">
+          <button
+            className="btn btn-primary "
+            type="btn"
+            onClick={() => addToCartHandler(food)}
+          >
             Add to Cart
           </button>
         </div>

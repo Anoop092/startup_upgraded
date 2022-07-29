@@ -1,9 +1,19 @@
 import Image from "next/image";
 import React from "react";
 import { urlFor } from "../utils/image";
+import { useGlobalContext } from "../utils/Store";
 
 const FoodDetail = ({ food }) => {
-  const { image, name, category, for: fors, details, price } = food;
+  const { addToCartHandler } = useGlobalContext();
+  const {
+    image,
+    name,
+    category,
+    for: fors,
+    details,
+    price,
+    countInStock,
+  } = food;
 
   return (
     <div className="grid md:grid-cols-4 gap-3">
@@ -59,9 +69,14 @@ const FoodDetail = ({ food }) => {
           </div>
           <div className="flex justify-between mb-2 ">
             <div>Status</div>
-            <div>In stock</div>
+            <div>{countInStock > 0 ? "inStock" : "out of stock"}</div>
           </div>
-          <button className="primary-button">Add to Cart</button>
+          <button
+            className="primary-button"
+            onClick={() => addToCartHandler(food)}
+          >
+            Add to Cart
+          </button>
         </div>
       </div>
     </div>
